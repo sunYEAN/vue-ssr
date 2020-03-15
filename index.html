@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 使用双花括号(double-mustache)进行 HTML 转义插值(HTML-escaped interpolation) -->
+    <title><%= htmlWebpackPlugin.options.title %></title>
+
+    <!-- 使用三花括号(triple-mustache)进行 HTML 不转义插值(non-HTML-escaped interpolation) -->
+</head>
+<body>
+
+<!--<%= JSON.stringify(htmlWebpackPlugin.options) %>-->
+    <div id="app">
+        <!--vue-ssr-outlet-->
+    </div>
+
+<!-- 开发环境 -->
+<% if (process.env.NODE_ENV === 'development') { %>
+<script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+<script>
+    new VConsole();
+</script>
+<% } %>
+</body>
+</html>
