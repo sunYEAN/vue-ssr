@@ -1,14 +1,6 @@
 <template>
     <div class="record-wrap">
-        <div v-swiper:mySwiper="sOption" @someSwiperEvent="handleSwiperEvent">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" v-for="(b, index) in banners">
-                    <img :alt="b.title" :src="b.cover"/>
-                    <p>{{b.title}}</p>
-                </div>
-            </div>
-            <div class="swiper-pagination"></div>
-        </div>
+        记录
     </div>
 </template>
 
@@ -18,11 +10,6 @@
         name: "Record",
         data () {
             return {
-                sOption: {
-                    pagination: {
-                        el: '.swiper-pagination'
-                    },
-                }
             }
         },
         asyncData ({store, route}) {

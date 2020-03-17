@@ -25,7 +25,6 @@ const config = {
     devServer: {
         host: '0.0.0.0',
         port: 8082,
-        hot: true,
         historyApiFallback: true
     },
 
@@ -114,19 +113,19 @@ const config = {
             title: 'ssr-client',
         }),
 
-        new BundleAnalyzerPlugin()
+        // new BundleAnalyzerPlugin()
     ],
-    optimization: {
-        splitChunks: {
-            minChunks: 2,
-            cacheGroups: {
-                vendors: {
-                    test: /(vue|vuex|vue-router|axios|mockjs)/,
-                    name: 'dll'
-                }
-            }
-        }
-    }
+    // optimization: {
+    //     splitChunks: {
+    //         minChunks: 2,
+    //         cacheGroups: {
+    //             vendors: {
+    //                 test: /(vue|vuex|vue-router|axios|mockjs)/,
+    //                 name: 'dll'
+    //             }
+    //         }
+    //     }
+    // }
 };
 
 

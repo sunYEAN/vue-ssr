@@ -40,3 +40,24 @@ export const homeBanner = () => {
     })
 };
 
+export const issue = () => {
+    return Mock.mock({
+        code: 200,
+        message: "获取成功",
+        data: {
+            id: 1,
+            title: '@cparagraph(1)',
+            desc: '@cparagraph(1, 2)',
+            edit_time: '@date',
+            update_time: '@date',
+            content: '@cparagraph(20, 30)',
+            'poster|1': [
+                [img],
+                [img, img, img],
+                []
+            ],
+            'cate': 'javascript',
+            'tags': ['都市', '霸道总裁']
+        }
+    })
+};

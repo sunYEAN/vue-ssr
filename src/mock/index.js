@@ -1,5 +1,5 @@
 import Mock from 'mockjs';
-import {homeData, homeBanner} from './home';
+import {homeData, homeBanner, issue} from './home';
 
 
 Mock.mock('/api/getHomeData', 'get', homeData);
@@ -215,3 +215,5 @@ Mock.mock('/api/getCityData', 'get', {
         }
     ]
 });
+
+Mock.mock('/api/getIssueDetail', 'get', issue);

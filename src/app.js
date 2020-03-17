@@ -1,22 +1,18 @@
 import Vue from 'vue'
 import App from './app.vue'
-import { createRouter } from './router'
-import { createStore } from './store'
+import {createRouter} from './router'
+import {createStore} from './store'
 import { sync } from 'vuex-router-sync'
-import 'swiper/dist/css/swiper.css';
-import VueAwesomeSwiper from "vue-awesome-swiper/dist/ssr";
 
 export function createApp (context) {
     // 创建 router 和 store 实例
     const router = createRouter();
     const store = createStore();
 
-    Vue.use(VueAwesomeSwiper);
-
     // 同步路由状态(route state)到 store
     sync(store, router);
 
-    if (context.beforeResolve) {
+    if (context && context.beforeResolve) {
         context.beforeResolve({store, router});
     }
 

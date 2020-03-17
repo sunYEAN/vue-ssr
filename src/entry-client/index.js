@@ -1,4 +1,9 @@
-import { createApp } from '../app'
+import {createApp} from '../app'
+import 'reset.css';
+import '../services/axios';
+import '../mock';
+import '../animate.css';
+
 
 const beforeResolve = function ({store, router}) {
     // asyncData 客户端实现
@@ -29,11 +34,6 @@ if (typeof window !== 'undefined' && window.__INITIAL_STATE__) {
     store.replaceState(window.__INITIAL_STATE__)
 }
 
-import 'reset.css';
-import '../mock';
-import '../services/axios';
-import '../animate.css';
-
 // onReady
 // 在导航完成初始导航时调用
 
@@ -46,6 +46,7 @@ import '../animate.css';
 // 然而在非ssr应用里，我们应该是在路由解析之前就应该设置这个导航，
 // 不能等页面router解析好了才设置。这就是为什么一刷新页面，没有响应，切换页面时正常的原因所在。
 
-router.onReady(async () => {
+router.onReady(() => {
     app.$mount('#app');
 });
+

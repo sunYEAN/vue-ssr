@@ -1,22 +1,16 @@
 <template>
-    <div class="search">{{name}}</div>
+    <div class="issue">{{name}}</div>
 </template>
 
-<docs>
-    # 哈哈哈哈
-</docs>
-
 <script>
-    import {sayHi} from '../../utils'
     export default {
-        name:'search',
+        name:'Issue',
         data () {
             return {
-                name: 'search'
+                name: 'issue'
             }
         },
         mounted() {
-            sayHi('yangheng');
         }
     }
 </script>

@@ -1,16 +1,20 @@
 <template>
     <div class="container home">
-        <template v-for="(item, index) in list">
-            <component :is="getComponentName(item)" @onTap="handleItemTap" :info="item"></component>
-            <v-comment :key="comment.id" v-for="(comment, ind) in item.comments" :comment="comment"></v-comment>
+        <template v-if="list.length">
+            <template v-for="(item, index) in list">
+                <component :is="getComponentName(item)" @onTap="handleItemTap" :info="item"></component>
+                <v-comment :key="comment.id" v-for="(comment, ind) in item.comments" :comment="comment"></v-comment>
+            </template>
         </template>
+
+        <div v-else class="loading">
+            加载中...
+        </div>
     </div>
 </template>
 
 <script>
     import CardLayout from '../../components/MyCard';
-
-    console.log(CardLayout)
     import VComment from '@src/components/Comment';
     const $utils = require('../../utils');
     import {mapState} from 'vuex';
@@ -123,12 +127,7 @@
         overflow: hidden;
     }
     .loading{
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        background-color: rgba(0,0,0,0.5);
-        transform: translateY(100px);
+        font-size: 28px;
+        text-align: center;
     }
 </style>

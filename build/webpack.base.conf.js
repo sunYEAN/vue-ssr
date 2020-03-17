@@ -1,13 +1,13 @@
-const path=require("path");
+const path = require("path");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 //在webpack4.x版本中mini-css-extract-plugin插件代替extract-text-webpack-plugin插件
 
-module.exports={
-    mode:"development",
-    output:{
-        path:path.resolve(__dirname,"../dist"),
-        filename:"[name].bundle.js",
+module.exports = {
+    mode: "development",
+    output: {
+        path: path.resolve(__dirname, "../dist"),
+        filename: "[name].bundle.js",
         publicPath: "/",
     },
     resolve: {
@@ -19,6 +19,7 @@ module.exports={
         }
     },
     module: {
+
         rules: [
             {
                 test: /\.js$/,
@@ -36,6 +37,9 @@ module.exports={
                             plugins: [
                                 require('autoprefixer')({
                                     overrideBrowserslist: ['last 2 version', '>1%', 'ios 7']
+                                }),
+                                require('postcss-px2rem')({
+                                    remUnit: 100
                                 })
                             ]
                         }
@@ -53,8 +57,9 @@ module.exports={
                     {
                         loader: "url-loader",
                         options: {
+                            esModule: false,
                             limit: 10240,
-                            name: 'images/[name].[hash:8].[ext]'
+                            name: 'images/[name].[ext]'
                         },
                     }
                 ],
@@ -62,11 +67,11 @@ module.exports={
             },
         ]
     },
-    plugins:[
+    plugins: [
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
-            filename:"css/[name].client.css",
-            chunkFilename:"css/[id].client.css"
+            filename: "css/[name].client.css",
+            chunkFilename: "css/[id].client.css"
         })
     ]
 };

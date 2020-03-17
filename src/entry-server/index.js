@@ -1,4 +1,5 @@
 import { createApp } from '../app'
+import '../services/axios';
 
 export default context => {
     return new Promise((resolve, reject) => {
