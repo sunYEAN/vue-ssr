@@ -5,6 +5,12 @@
             <img v-for="i in info.poster" :src="i" alt="">
         </div>
         <p class="line-2">{{info.desc}}</p>
+
+        <div class="desc">
+            <span>{{info.edit_time}}</span>
+            <!--<label>更新：</label><span>{{info.update_time}}</span>-->
+            <span class="cate">{{info.cate}}</span>
+        </div>
     </div>
 </template>
 
@@ -25,7 +31,7 @@
             justify-content: space-between;
             >img{
                 width: 32%;
-                height: 100px;
+                height: 200px;
                 object-fit: cover;
             }
         }

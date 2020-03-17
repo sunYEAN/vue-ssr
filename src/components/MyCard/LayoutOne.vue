@@ -4,14 +4,14 @@
             <img v-if="info.poster && info.poster.length" class="cover" :src="info.poster[0]" alt="">
 
             <div class="c-info">
-                <h3>{{info.layout}}{{info.title}}</h3>
+                <h3 class="line-2">{{info.layout}}{{info.title}}</h3>
                 <p class="line-2">{{info.desc}}</p>
             </div>
         </div>
         <div class="desc">
-            <label>发布：</label><span>{{info.edit_time}}</span>
-            <label>更新：</label><span>{{info.update_time}}</span>
-            <label>分类：</label><span class="cate">{{info.cate}}</span>
+            <span>{{info.edit_time}}</span>
+            <!--<label>更新：</label><span>{{info.update_time}}</span>-->
+            <span class="cate">{{info.cate}}</span>
         </div>
     </div>
 </template>
@@ -37,31 +37,22 @@
         .content{
             display: flex;
             img.cover{
-                width: 90px;
-                height: 114px;
+                width: 180px;
+                height: 228px;
                 flex-shrink: 0;
-                margin-right: 8px;
+                margin-right: 16px;
             }
             .c-info{
                 overflow: hidden;
                 h3{
                     color: #333;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
+                    margin-bottom: 10px;
                 }
                 p{
                     color: #93939F;
+                    margin-top: 0;
                     -webkit-line-clamp: 3;
                 }
-            }
-        }
-        .desc{
-            font-size: 12px;
-            margin-top: 10px;
-            >span{
-                color: #93939F;
-                margin-right: 10px;
             }
         }
     }

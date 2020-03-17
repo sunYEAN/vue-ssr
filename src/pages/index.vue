@@ -21,22 +21,22 @@
                 tabs: [
                     {
                         id: 'tab_01',
-                        path: '/home',
+                        path: '/app/home',
                         title: '首页'
                     },
                     {
                         id: 'tab_02',
-                        path: '/record',
+                        path: '/app/issue',
                         title: '文章'
                     },
                     {
                         id: 'tab_03',
-                        path: '/cate',
+                        path: '/app/record',
                         title: '记录'
                     },
                     {
                         id: 'tab_04',
-                        path: '/about',
+                        path: '/app/about',
                         title: '关于'
                     }
                 ]
@@ -46,15 +46,18 @@
 </script>
 
 <style lang="less">
-    @navBarHeight: 80px;
+    @navBarHeight: 100px;
     .logo{
-        width: 40px;
-        height: 40px;
+        width: 60px;
+        height: 60px;
     }
     body {
         font-family: -apple-system, "SF Pro SC", "HanHei SC", "SF Pro Text", "Myriad Set Pro", "SF Pro Icons", "Apple Legacy Chevron", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;    }
     html{
         color: #353C46;
+        width: 100%;
+        font-size: 30px;
+        background-color: #f3f5f7;
     }
     .router-link-active{
         font-weight: bold;
@@ -69,6 +72,7 @@
             left: 0;
             width: 100%;
             height:  @navBarHeight;
+            z-index: 100;
             position: fixed;
             background-color: #ffffff;
         }

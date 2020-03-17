@@ -1,9 +1,51 @@
+// 高阶函数
+Function.prototype.before = function (callback) {
+    const _self = this;
+    return function (...args) {
+        callback.call(_self, ...args);
+        _self.call(_self, ...args);
+    }
+};
+function tellName(name) {
+    console.log(`my name is ${name}`);
+}
+const newHi = tellName.before(function () {
+    console.log('hi');
+});
+newHi();
 
+
+function add(x) {
+    return function (y) {
+        return x + y;
+    }
+}
+add(10)(20);
+
+
+// 函数柯里化
+function curring(fn, ...args) {
+    if (fn.length <= args.length) return fn(...args);
+
+    return function (...args2) {
+        return curring(fn, ...args, ...args2);
+    }
+}
+function add(a, b, c, d) {
+    return a + b + c + d;
+}
+
+const newAdd = curring(add);
+newAdd(1)(2)(3)(4);
+
+
+// A+规范的promise
 const STATUS = {
     PENDING: 'pending',
     FULFILLED: 'fulfilled',
     REJECTED: 'rejected',
 };
+
 class Promise {
     constructor(executor) {
 
@@ -37,7 +79,7 @@ class Promise {
         }
     }
 
-    then (onFulfilled, onRejected) {
+    then(onFulfilled, onRejected) {
         onFulfilled = typeof onFulfilled === "function" ? onFulfilled : (value) => value;
         onRejected = typeof onRejected === "function" ? onRejected : (reason) => {
             throw reason;
@@ -97,8 +139,12 @@ class Promise {
         return promise2;
     }
 
+    catch(onRejected) {
+        return this.then(null, onRejected);
+    }
+
     //
-    static resolvePromise (promise2, x, resolve, reject) {
+    static resolvePromise(promise2, x, resolve, reject) {
         if (promise2 === x) {
             reject(new TypeError('Chaining cycle detected for promise ---'));
         }
@@ -111,7 +157,7 @@ class Promise {
             }, reason => {
                 reject(reason);
             })
-        } else if ( x !== null && (typeof x === "object") || typeof x === "function") {
+        } else if (x !== null && (typeof x === "object") || typeof x === "function") {
             try {
                 const then = x.then;
                 if (typeof then === "function") {
@@ -142,7 +188,7 @@ class Promise {
 
 Promise.defer = Promise.deferred = function () {
     let dfd = {};
-    dfd.promise = new Promise((resolve,reject)=>{
+    dfd.promise = new Promise((resolve, reject) => {
         dfd.resolve = resolve;
         dfd.reject = reject;
     });

@@ -4,7 +4,7 @@ export default {
         banners: [],
     },
     actions: {
-        getRecordBanners ({commit}) {
+        getRecordBanners ({commit, state}) {
             if (state.banners.length) return state.banners;
             return getRecordBanner().then(res => {
                 commit('SET_BANNERS', res.data);

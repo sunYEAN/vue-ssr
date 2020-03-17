@@ -55,30 +55,15 @@ const config = {
                             plugins: [
                                 require('autoprefixer')({
                                     overrideBrowserslist: ['last 2 version', '>1%', 'ios 7']
+                                }),
+                                require('postcss-px2rem')({
+                                    remUnit: 100
                                 })
                             ]
                         }
                     },
                     'less-loader'
                 ]
-                // extract-text-webpack-plugin@next
-                // use: ExtractTextPlugin.extract({
-                //     fallback: 'vue-style-loader',
-                //     use:[
-                //         'css-loader',
-                //         {
-                //             loader: 'postcss-loader',
-                //             options: {
-                //                 plugins: [
-                //                     require('autoprefixer')({
-                //                         overrideBrowserslist: ['last 2 version', '>1%', 'ios 7']
-                //                     })
-                //                 ]
-                //             }
-                //         },
-                //         'less-loader'
-                //     ]
-                // }),
             },
             {
                 test: /\.vue$/,
@@ -127,9 +112,6 @@ const config = {
             template: path.resolve(__dirname, '../index.html'),
             filename: "index.html",
             title: 'ssr-client',
-            meta: {
-                'viewport': 'width=device-width'
-            }
         }),
 
         new BundleAnalyzerPlugin()

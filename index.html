@@ -6,13 +6,41 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
 
     <!-- 使用三花括号(triple-mustache)进行 HTML 不转义插值(non-HTML-escaped interpolation) -->
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <script>
+        window.computedScale = function () {
+            var w = document.documentElement.clientWidth;
+            w = w > 414 ? 414 : w;
+            return w / 7.5;
+        };
+        var response = function () {
+            if (document.documentElement.clientWidth > 1024) {
+                document.documentElement.style.width = 1024 + 'px';
+                document.documentElement.style.marginLeft = 'auto';
+                document.documentElement.style.marginRight = 'auto';
+            } else {
+                document.documentElement.style.width = '';
+                document.documentElement.style.marginLeft = '';
+                document.documentElement.style.marginRight = '';
+            }
+            document.documentElement.style.fontSize = window.computedScale() + 'px';
+        };
+        window.onresize = function () {
+            response();
+            clearTimeout(this.responseTimer);
+            this.responseTimer = setTimeout(response, 300);
+        };
+        response();
+    </script>
 </head>
 <body>
 
 <!--<%= JSON.stringify(htmlWebpackPlugin.options) %>-->
-    <div id="app">
-        <!--vue-ssr-outlet-->
-    </div>
+<div id="app">
+    <!--vue-ssr-outlet-->
+</div>
 
 <!-- 开发环境 -->
 <% if (process.env.NODE_ENV === 'development') { %>
@@ -21,178 +49,5 @@
     new VConsole();
 </script>
 <% } %>
-
-<script>
-    // A+ 规范
-    // 1、当 pending 状态的时候 可以 切换成 resolved 或者 rejected状态
-    // 2、当 resolved 或者 rejected状态时，返回一个值或者reason且不能变更为其他的状态。
-    // 3、一个promise必须有一个then方法
-    // 4、then 方法接收两个函数作为参数 onFulfilled 和 onRejected 且如果不为函数 将其忽略
-    // 5、promise在被实现后 必须调用 成功回调函数onFulfilled，且onFulfilled不能被多次调用
-    // 6、promise在被拒绝后 必须调用 失败回调函数onRejected， 且onRejected不能被多次调用
-    // 7、在执行上下文堆栈仅包含平代码之前不能调用 成功或者失败回调
-
-    const STATUS = {
-        PENDING: 'pending',
-        FULFILLED: 'fulfilled',
-        REJECTED: 'rejected',
-    };
-    class Promise {
-        constructor(executor) {
-
-            this.status = STATUS.PENDING;
-            this.value;
-            this.reason;
-            this.onResolvedCallbacks = [];
-            this.onRejectedCallbacks = [];
-
-            let resolve = (res) => {
-                if (this.status === STATUS.PENDING) {
-                    this.status = STATUS.FULFILLED;
-                    this.value = res;
-                    this.onResolvedCallbacks.forEach(callback => callback(this.value));
-                }
-            };
-
-            let reject = (err) => {
-                if (this.status === STATUS.PENDING) {
-                    this.status = STATUS.REJECTED;
-                    this.reason = err;
-                    this.onRejectedCallbacks.forEach(callback => callback(this.reason));
-                }
-            };
-
-            // 立即执行传入的方法，并把resolve和reject方法给其当做参数调用
-            try {
-                executor(resolve, reject);
-            } catch (e) {
-                reject(e);
-            }
-        }
-
-        then (onFulfilled, onRejected) {
-            onFulfilled = typeof onFulfilled === "function" ? onFulfilled : (value) => value;
-            onRejected = typeof onRejected === "function" ? onRejected : (reason) => {
-                throw reason;
-            };
-
-            const _self = this;
-
-            let promise2 = new Promise((resolve, reject) => {
-                if (_self.status === STATUS.PENDING) {
-                    _self.onResolvedCallbacks.push((value) => {
-                        try {
-                            const x = onFulfilled(value);
-                            Promise.resolvePromise(promise2, x, resolve, reject);
-                        } catch (e) {
-                            reject(e);
-                        }
-                    });
-                    _self.onRejectedCallbacks.push((reason) => {
-                        try {
-                            // 得到promise1 -> then的返回值
-                            const x = onRejected(reason);
-                            Promise.resolvePromise(promise2, x, resolve, reject);
-                        } catch (e) {
-                            reject(e);
-                            onRejected(e);
-                        }
-                    });
-                }
-
-                // 已完成
-                else if (_self.status === STATUS.FULFILLED) {
-                   setTimeout(() => {
-                       try {
-                           const x = onFulfilled(_self.value);
-                           Promise.resolvePromise(promise2, x, resolve, reject);
-                       } catch (e) {
-                           reject(e);
-                       }
-                   }, 0)
-                }
-                // 已拒绝
-                else if (_self.status === STATUS.REJECTED) {
-                    setTimeout(() => {
-                        try {
-                            const x = onRejected(_self.reason);
-                            Promise.resolvePromise(promise2, x, resolve, reject);
-                        } catch (e) {
-                            reject(e);
-                        }
-                    }, 0)
-                }
-            });
-
-            return promise2;
-        }
-
-        //
-        static resolvePromise (promise2, x, resolve, reject) {
-            if (promise2 === x) {
-                reject(new TypeError('Chaining cycle detected for promise ---'));
-            }
-
-            let called = false;
-
-            if (x instanceof Promise) {
-                x.then(value => {
-                    Promise.resolvePromise(promise2, value, resolve, reject);
-                }, reason => {
-                    reject(reason);
-                })
-            } else if ( x !== null && (typeof x === "object") || typeof x === "function") {
-                try {
-                    const then = x.then;
-                    if (typeof then === "function") {
-                        then.call(x, value => {
-                            if (called) return;
-                            called = true;
-                            Promise.resolvePromise(promise2, value, resolve, reject);
-                        }, reason => {
-                            if (called) return;
-                            called = true;
-                            reject(reason);
-                        })
-                    } else {
-                        if (called) return;
-                        called = true;
-                        resolve(x);
-                    }
-                } catch (e) {
-                    if (called) return;
-                    called = true;
-                    reject(e);
-                }
-            } else {
-                resolve(x);
-            }
-        }
-    }
-
-    const delay = function (time) {
-        return new Promise(function (resolve, reject) {
-            setTimeout(() => {
-                reject(1);
-            }, time)
-        })
-    };
-
-    delay(1000)
-        .then( res => {
-            console.log(res);
-            return new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    resolve(500);
-                }, 500);
-            })
-        }, err => {
-            console.error(err)
-        })
-        .then(res => {
-            console.log(res, '1');
-        })
-
-</script>
 </body>
 </html>

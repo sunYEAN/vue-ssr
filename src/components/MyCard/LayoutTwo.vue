@@ -5,6 +5,12 @@
             <img :src="info.poster[0]" alt="">
         </div>
         <p>{{info.desc}}</p>
+
+        <div class="desc">
+            <span>{{info.edit_time}}</span>
+            <!--<label>更新：</label><span>{{info.update_time}}</span>-->
+            <span class="cate">{{info.cate}}</span>
+        </div>
     </div>
 </template>
 

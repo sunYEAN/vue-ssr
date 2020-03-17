@@ -23,7 +23,7 @@
 
 <style scoped lang="less">
     .tab-list{
-        box-shadow: 0 1px 0px 0px rgba(0,0,0,0.05);
+        box-shadow: 0 1px 0px 0px rgba(0,0,0,0.1);
         >ul{
             height: 100%;
             margin: 0 auto;
@@ -35,6 +35,7 @@
             li{
                 width: 100px;
                 height: 100%;
+                font-size: 30px;
             }
             >li:nth-of-type(1){
                 animation-delay: 0.1s;

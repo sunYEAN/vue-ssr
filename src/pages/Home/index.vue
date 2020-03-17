@@ -1,16 +1,16 @@
 <template>
     <div class="container home">
         <template v-for="(item, index) in list">
-            <component :is="getComponentName(item)" :info="item"></component>
+            <component :is="getComponentName(item)" @onTap="handleItemTap" :info="item"></component>
             <v-comment :key="comment.id" v-for="(comment, ind) in item.comments" :comment="comment"></v-comment>
         </template>
     </div>
 </template>
 
 <script>
-    import CardLayoutOne from '@src/components/MyCard/LayoutOne';
-    import CardLayoutTwo from '@src/components/MyCard/LayoutTwo';
-    import CardLayoutThree from '@src/components/MyCard/LayoutThree';
+    import CardLayout from '../../components/MyCard';
+
+    console.log(CardLayout)
     import VComment from '@src/components/Comment';
     const $utils = require('../../utils');
     import {mapState} from 'vuex';
@@ -21,9 +21,7 @@
     export default {
         name:'Home',
         components: {
-            CardLayoutOne,
-            CardLayoutTwo,
-            CardLayoutThree,
+            ...CardLayout,
             VComment,
         },
         data () {
@@ -80,8 +78,14 @@
             },
 
             getComponentName (card) {
-                console.log(card.layout)
                 return 'card-layout-' + layouts[card.layout];
+            },
+
+            // event props cardLayout 监听item被点击
+            handleItemTap (item) {
+                this.$router.push({
+                    path: '/detail/' + item.id
+                });
             }
         },
         async mounted() {
