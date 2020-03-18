@@ -13,7 +13,7 @@ const isDev = process.env.NODE_ENV === 'development';
 
 const config = {
     mode: 'development',
-    // devtool: 'source-map',
+    devtool: 'source-map',
     entry: {
         main: path.resolve(__dirname, '../src/entry-client/index.js')
     },
@@ -46,7 +46,14 @@ const config = {
                 test: /\.(css|less)$/,
                 use: [
                     'vue-style-loader',
-                    // MiniCssExtractPlugin.loader,
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            // 允许热模块重新加载
+                            hmr: true,
+                            reloadAll: true
+                        }
+                    },
                     'css-loader',
                     {
                         loader: "postcss-loader",
@@ -92,10 +99,10 @@ const config = {
     plugins: [
         // new ExtractTextPlugin('css/[name].css'),
 
-        // new MiniCssExtractPlugin({
-        //     filename: 'css/[name].[hash:8].css',
-        //     chunkFilename: 'css/[id].[hash:8].css',
-        // }),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].css',
+            chunkFilename: 'css/[id].css',
+        }),
 
         new VueLoaderPlugin(),
         // DefinePlugin 允许创建一个在编译时可以配置的全局常量。
@@ -115,17 +122,23 @@ const config = {
 
         // new BundleAnalyzerPlugin()
     ],
-    // optimization: {
-    //     splitChunks: {
-    //         minChunks: 2,
-    //         cacheGroups: {
-    //             vendors: {
-    //                 test: /(vue|vuex|vue-router|axios|mockjs)/,
-    //                 name: 'dll'
-    //             }
-    //         }
-    //     }
-    // }
+    optimization: {
+        splitChunks: {
+            minChunks: 2,
+            cacheGroups: {
+                // styles: {
+                //     name: 'styles',
+                //     test: /\.(c|le)ss$/,
+                //     chunks: "all",
+                //     enforce: true
+                // },
+                vendors: {
+                    test: /(vue|vuex|vue-router|axios|mockjs)/,
+                    name: 'dll'
+                }
+            }
+        }
+    }
 };
 
 

@@ -1,15 +1,14 @@
 <template>
     <div class="container home">
+        <div class="loading">
+            加载中...
+        </div>
         <template v-if="list.length">
             <template v-for="(item, index) in list">
                 <component :is="getComponentName(item)" @onTap="handleItemTap" :info="item"></component>
                 <v-comment :key="comment.id" v-for="(comment, ind) in item.comments" :comment="comment"></v-comment>
             </template>
         </template>
-
-        <div v-else class="loading">
-            加载中...
-        </div>
     </div>
 </template>
 
@@ -126,7 +125,9 @@
     .home{
         overflow: hidden;
     }
+
     .loading{
+        color: #93939F;
         font-size: 28px;
         text-align: center;
     }

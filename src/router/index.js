@@ -2,11 +2,11 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import App from '../pages';
-import Home from '../pages/Home';
-import Issue from '../pages/Issue';
-import Record from '../pages/Record';
-import About from '../pages/About';
-import Detail from '../pages/Detail';
+// import Home from '../pages/Home';
+// import Issue from '../pages/Issue';
+// import Record from '../pages/Record';
+// import About from '../pages/About';
+// import Detail from '../pages/Detail';
 
 Vue.use(VueRouter);
 
