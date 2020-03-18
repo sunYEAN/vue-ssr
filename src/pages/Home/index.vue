@@ -1,14 +1,15 @@
 <template>
     <div class="container home">
-        <div class="loading">
-            加载中...
-        </div>
         <template v-if="list.length">
             <template v-for="(item, index) in list">
                 <component :is="getComponentName(item)" @onTap="handleItemTap" :info="item"></component>
                 <v-comment :key="comment.id" v-for="(comment, ind) in item.comments" :comment="comment"></v-comment>
             </template>
         </template>
+
+        <div v-else class="loading">
+            加载中...
+        </div>
     </div>
 </template>
 
@@ -19,7 +20,7 @@
     import {mapState} from 'vuex';
 
 
-    const layouts = ['one', 'two', 'three'];
+    const layouts = ['one', 'two', 'three', 'four'];
 
     export default {
         name:'Home',
@@ -81,8 +82,7 @@
             },
 
             getComponentName (card) {
-                const type = card.type === 1 ? 'Issue' : 'Image';
-                return `card-layout-${type}-${layouts[card.layout]}`;
+                return `card-layout-Issue-${layouts[card.layout]}`;
             },
 
             // event props cardLayout 监听item被点击

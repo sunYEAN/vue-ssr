@@ -1,10 +1,6 @@
 <template>
     <div class="header-tab">
-        <nav-tab class="nav-tab animated fadeInDown" :tabs="tabs">
-            <template v-slot:logo>
-                <img class="logo" src="../images/logo.png" alt="">
-            </template>
-        </nav-tab>
+        <nav-tab class="nav-tab" :tabs="tabs"></nav-tab>
         <article class="article">
             <router-view></router-view>
         </article>
@@ -24,11 +20,11 @@
                         path: '/app/home',
                         title: '首页'
                     },
-                    {
-                        id: 'tab_02',
-                        path: '/app/issue',
-                        title: '文章'
-                    },
+                    // {
+                    //     id: 'tab_02',
+                    //     path: '/app/issue',
+                    //     title: '文章'
+                    // },
                     {
                         id: 'tab_03',
                         path: '/app/record',
@@ -46,7 +42,7 @@
 </script>
 
 <style lang="less">
-    @navBarHeight: 100px;
+    @navBarHeight: 90px;
     .logo{
         width: 60px;
         height: 60px;
@@ -60,24 +56,25 @@
         background-color: #f3f5f7;
     }
     .router-link-active{
+        box-sizing: border-box;
         font-weight: bold;
     }
-    .container {
-        margin: 0 auto;
-        max-width: 1024px;
-    }
     .header-tab{
-        .nav-tab{
-            top: 0;
+        .nav-tab,.nav-search{
             left: 0;
             width: 100%;
-            height:  @navBarHeight;
+            height: @navBarHeight;
+            bottom: 0;
             z-index: 100;
             position: fixed;
             background-color: #ffffff;
         }
+        .nav-search{
+            top: 0;
+            bottom: auto;
+        }
         .article{
-            padding-top:  @navBarHeight;
+            padding-bottom:  calc(@navBarHeight + 20px);
         }
     }
 

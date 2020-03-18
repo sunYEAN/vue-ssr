@@ -1,6 +1,6 @@
 import Mock from 'mockjs';
 
-const img = Mock.Random.image('200x160');
+const img = 'http://source.mnnuu.cn/a.jpg';
 
 const end = ({code = 200, message = '获取成功', data}) => {
     return {
@@ -18,10 +18,7 @@ export const homeData = () => {
             'views': Mock.Random.integer(100, 999),
             'title': '@cparagraph(1, 5)',
             'desc': '@cparagraph(1, 5)',
-            'type|1': [1, 2],
-            'layout|1': function () {
-                return this.type === 1 ? Mock.Random.integer(0, 2) : Mock.Random.integer(0, 1);
-            },
+            'layout|1': [0,1,2,3],
             'poster|1': [
                 [img],
                 [img, img, img, img, img, img, img, img, img],
@@ -97,11 +94,10 @@ export const records = () => {
             'views': Mock.Random.integer(100, 999),
             'title': '@cparagraph(1, 5)',
             'desc': '@cparagraph(1, 5)',
-            'layout|1': [0, 1, 2],
+            'layout|1': [0, 1],
             'images|1': [
-                [img],
                 [img, img, img],
-                []
+                [img, img, img, img, img, img, img, img, img],
             ],
             'edit_time': '@date',
             'update_time': '@date',

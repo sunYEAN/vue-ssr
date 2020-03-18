@@ -25,7 +25,10 @@ const config = {
     devServer: {
         host: '0.0.0.0',
         port: 8082,
-        historyApiFallback: true
+        historyApiFallback: true,
+        proxy: {
+            '/api': 'http://localhost:3000'
+        }
     },
 
     resolve: {

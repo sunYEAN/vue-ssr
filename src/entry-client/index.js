@@ -1,8 +1,9 @@
 import {createApp} from '../app'
 import 'reset.css';
 import '../services/axios';
-import '../mock';
+// import '../mock';
 import '../animate.css';
+import '../media.less';
 
 
 const beforeResolve = function ({store, router}) {

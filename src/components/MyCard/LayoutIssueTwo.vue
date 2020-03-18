@@ -1,7 +1,7 @@
 <template>
     <div class="card-layout card-layout-two">
-        <h3 class="line-2">{{info.layout}}{{info.title}}</h3>
-        <div v-if="info.poster.length" class="p-img">
+        <h3 class="line-2">{{info.title}}</h3>
+        <div v-if="info.poster.length" class="c-img">
             <img :src="info.poster[0]" alt="">
         </div>
         <p>{{info.desc}}</p>
@@ -11,6 +11,8 @@
             <!--<label>更新：</label><span>{{info.update_time}}</span>-->
             <span class="cate">{{info.cate}}</span>
         </div>
+
+        <slot></slot>
     </div>
 </template>
 
@@ -26,7 +28,7 @@
 
 <style scoped lang="less">
     .card-layout-two{
-        >.p-img{
+        >.c-img{
             width: 100%;
             display: flex;
             align-items: center;

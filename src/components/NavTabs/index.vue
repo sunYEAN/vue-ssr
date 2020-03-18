@@ -1,10 +1,7 @@
 <template>
-    <header class="tab-list">
+    <header class="tab-list animated fadeInUp">
         <ul class="container">
-            <li class="f-c slot">
-                <slot name="logo"></slot>
-            </li>
-            <router-link class="f-c animated bounceInDown" tag="li" :to="tab.path" :key="tab.id" v-for="tab in tabs">{{tab.title}}</router-link>
+            <router-link class="f-c animated bounceInUp" tag="li" :to="tab.path" :key="tab.id" v-for="tab in tabs">{{tab.title}}</router-link>
         </ul>
     </header>
 </template>
@@ -23,19 +20,19 @@
 
 <style scoped lang="less">
     .tab-list{
-        box-shadow: 0 1px 0px 0px rgba(0,0,0,0.1);
+        box-shadow: 0 -1px 0px 0px rgba(0,0,0,0.1);
         >ul{
             height: 100%;
             margin: 0 auto;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-around;
             .slot{
                 margin-right: auto;
             }
             li{
-                width: 100px;
+                width: 120px;
                 height: 100%;
-                font-size: 30px;
+                font-size: 28px;
             }
             >li:nth-of-type(1){
                 animation-delay: 0.1s;

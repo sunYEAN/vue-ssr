@@ -1,8 +1,7 @@
 import LayoutIssueOne from './LayoutIssueOne';
 import LayoutIssueTwo from './LayoutIssueTwo';
 import LayoutIssueThree from './LayoutIssueThree';
-import LayoutPicsOne from './LayoutPicsOne';
-import LayoutPicsTwo from './LayoutPicsTwo';
+import LayoutIssueFour from './LayoutIssueFour';
 
 import './common.less';
 
@@ -39,6 +38,5 @@ export default {
     CardLayoutIssueOne: withEvent(LayoutIssueOne),
     CardLayoutIssueTwo: withEvent(LayoutIssueTwo),
     CardLayoutIssueThree: withEvent(LayoutIssueThree),
-    CardLayoutImageOne: withEvent(LayoutPicsOne),
-    CardLayoutImageTwo: withEvent(LayoutPicsTwo),
+    CardLayoutIssueFour: withEvent(LayoutIssueFour),
 };
