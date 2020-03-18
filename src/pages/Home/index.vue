@@ -81,7 +81,8 @@
             },
 
             getComponentName (card) {
-                return 'card-layout-' + layouts[card.layout];
+                const type = card.type === 1 ? 'Issue' : 'Image';
+                return `card-layout-${type}-${layouts[card.layout]}`;
             },
 
             // event props cardLayout 监听item被点击

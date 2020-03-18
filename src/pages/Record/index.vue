@@ -1,6 +1,7 @@
 <template>
     <div class="record-wrap">
-        记录
+        {{banners}}
+        {{list}}
     </div>
 </template>
 
@@ -16,11 +17,13 @@
             // 触发 action 后，会返回 Promise
             return Promise.all([
                 store.dispatch('getRecordBanners'),
+                store.dispatch('getDataByCate', 2),
             ])
         },
         computed: {
             ...mapState({
-                banners: state => state.record.banners
+                list: state => state.Record.list,
+                banners: state => state.Record.banners
             })
         },
         methods: {

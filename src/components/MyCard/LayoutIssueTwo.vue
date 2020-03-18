@@ -1,10 +1,10 @@
 <template>
-    <div class="card-layout card-layout-three">
-        <h3 class="line-1">{{info.layout}}{{info.title}}</h3>
-        <div class="p-img">
-            <img v-for="i in info.poster" :src="i" alt="">
+    <div class="card-layout card-layout-two">
+        <h3 class="line-2">{{info.layout}}{{info.title}}</h3>
+        <div v-if="info.poster.length" class="p-img">
+            <img :src="info.poster[0]" alt="">
         </div>
-        <p class="line-2">{{info.desc}}</p>
+        <p>{{info.desc}}</p>
 
         <div class="desc">
             <span>{{info.edit_time}}</span>
@@ -23,16 +23,16 @@
     }
 </script>
 
+
 <style scoped lang="less">
-    @import "./common";
-    .card-layout-three{
+    .card-layout-two{
         >.p-img{
+            width: 100%;
             display: flex;
-            justify-content: space-between;
+            align-items: center;
+            justify-content: center;
             >img{
-                width: 32%;
-                height: 200px;
-                object-fit: cover;
+                width: 100%;
             }
         }
         >p{

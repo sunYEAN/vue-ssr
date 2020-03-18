@@ -2,7 +2,7 @@
     <div class="header-tab">
         <nav-tab class="nav-tab animated fadeInDown" :tabs="tabs">
             <template v-slot:logo>
-                <img class="logo" src="./images/logo.png" alt="">
+                <img class="logo" src="../images/logo.png" alt="">
             </template>
         </nav-tab>
         <article class="article">

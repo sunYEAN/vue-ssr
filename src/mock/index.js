@@ -1,5 +1,5 @@
 import Mock from 'mockjs';
-import {homeData, homeBanner, issue} from './home';
+import {homeData, homeBanner, issue, issues, records} from './home';
 
 
 Mock.mock('/api/getHomeData', 'get', homeData);
@@ -217,3 +217,16 @@ Mock.mock('/api/getCityData', 'get', {
 });
 
 Mock.mock('/api/getIssueDetail', 'get', issue);
+
+
+Mock.mock(/\/api\/getDataByCate[\s\S]*?/, 'get', (e) => {
+    const cateId = e.url.match(/.*cateId=(.*)/)[1];
+    switch (parseInt(cateId)) {
+        case 1:
+            return issues();
+            break;
+        case 2:
+            return records();
+            break;
+    }
+});

@@ -31,7 +31,6 @@
 
 
 <style scoped lang="less">
-    @import "./common";
     @defaultColor: #c87c1c;
     .card-layout-one{
         .content{

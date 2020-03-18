@@ -3,16 +3,16 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-import Home from './home';
-import record from './record';
-import detail from './detail';
+const matched = require.context('', false, /\.js$/);
+const modules = {};
 
-const modules = {
-    Home,
-    detail,
-    record
-};
-
+matched.keys().map(key => {
+    let name = key.match(/\.\/(.*)\.js$/)[1];
+    if (name && name !== 'index') {
+        name = name.replace(/.{1}/, (s) => s.toUpperCase());
+        modules[name] = matched(key).default;
+    }
+});
 
 // root store
 export const createStore = () => new Vuex.Store({
@@ -29,5 +29,5 @@ export const createStore = () => new Vuex.Store({
             state.loading = status;
         }
     },
-    modules
-})
+    modules: modules
+});

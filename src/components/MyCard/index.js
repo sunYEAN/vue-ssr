@@ -1,6 +1,10 @@
-import LayoutOne from './LayoutOne';
-import LayoutTwo from './LayoutTwo';
-import LayoutThree from './LayoutThree';
+import LayoutIssueOne from './LayoutIssueOne';
+import LayoutIssueTwo from './LayoutIssueTwo';
+import LayoutIssueThree from './LayoutIssueThree';
+import LayoutPicsOne from './LayoutPicsOne';
+import LayoutPicsTwo from './LayoutPicsTwo';
+
+import './common.less';
 
 export const withEvent = (CardComponent) => {
 
@@ -32,7 +36,9 @@ export const withEvent = (CardComponent) => {
 };
 
 export default {
-    CardLayoutOne: withEvent(LayoutOne),
-    CardLayoutTwo: withEvent(LayoutTwo),
-    CardLayoutThree: withEvent(LayoutThree),
+    CardLayoutIssueOne: withEvent(LayoutIssueOne),
+    CardLayoutIssueTwo: withEvent(LayoutIssueTwo),
+    CardLayoutIssueThree: withEvent(LayoutIssueThree),
+    CardLayoutImageOne: withEvent(LayoutPicsOne),
+    CardLayoutImageTwo: withEvent(LayoutPicsTwo),
 };

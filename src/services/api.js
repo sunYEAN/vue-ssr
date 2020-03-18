@@ -27,5 +27,8 @@ const parseFetch = (ms, fn) => {
 
 export const getHomeData = parseFetch(800,() => axios.get('/api/getHomeData'));
 export const getIssueDetail = (id) => axios.get('/api/getIssueDetail');
+export const getDataByCate = (cateId) => axios.get(`/api/getDataByCate`, {
+    params: {cateId}
+});
 export const getProvince = parseFetch(200,() => axios.get('/api/getCityData'));
 export const getRecordBanner = parseFetch(300,() => axios.get('/api/getHomeBanner'));

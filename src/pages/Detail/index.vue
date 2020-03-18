@@ -22,7 +22,7 @@
         name: "DetailWrap",
         computed: {
             ...mapState({
-                issue: state => state.detail.issue
+                issue: state => state.Detail.issue
             })
         },
         mounted () {
