@@ -24,7 +24,7 @@ export const homeData = () => {
             },
             'poster|1': [
                 [img],
-                [img, img, img],
+                [img, img, img, img, img, img, img, img, img],
                 []
             ],
             'edit_time': '@date',
