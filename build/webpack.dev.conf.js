@@ -2,6 +2,7 @@ const path = require('path');
 const base = require('./webpack.base.conf');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = merge(base, {
     mode: 'development',
@@ -21,8 +22,6 @@ module.exports = merge(base, {
             }
         }
     },
-
-
     plugins: [
         // DefinePlugin 允许创建一个在编译时可以配置的全局常量。
         // 这可能会对开发模式和发布模式的构建允许不同的行为非常有用。
@@ -32,5 +31,11 @@ module.exports = merge(base, {
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
             'process.env.VUE_ENV': '"client"'
         }),
+
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, '../index.html'),
+            filename: "index.html",
+            title: '开发环境'
+        })
     ]
 });

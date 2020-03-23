@@ -5,10 +5,12 @@ const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 //在webpack4.x版本中mini-css-extract-plugin插件代替extract-text-webpack-plugin插件
 
+const isDev = process.env.NODE_ENV === 'development';
+
 module.exports = {
     output: {
         path: path.resolve(__dirname, "../dist"),
-        filename: "[name].bundle.js",
+        filename: "js/[name].bundle.js",
         publicPath: "/",
     },
     stats: "minimal",

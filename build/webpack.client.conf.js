@@ -8,11 +8,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = merge(base, {
     mode: 'production',
     entry: {
-        client: path.resolve(__dirname, '../src/entry-server/index.js')
+        client: path.resolve(__dirname, '../src/entry-client/index.js')
     },
     target: 'web',
     output: {
-        filename: 'client-entry.js',
+        filename: 'js/client-entry.js',
         path: path.join(__dirname, '../dist')
     },
 

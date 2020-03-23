@@ -6,10 +6,10 @@ export default {
     actions: {
         getDataByCate ({commit, state}, cateId) {
             if (state.list.length) return state.list;
-            return getDataByCate(cateId).then(res => {
-                commit('SET_ISSUE_DATA', res.data);
-                return res;
-            });
+            // return getDataByCate(cateId).then(res => {
+            //     commit('SET_ISSUE_DATA', res.data);
+            //     return res;
+            // });
         }
     },
     mutations: {

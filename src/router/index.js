@@ -11,7 +11,7 @@ import App from '../pages';
 Vue.use(VueRouter);
 
 export const createRouter = () => new VueRouter({
-    mode: 'history',
+    mode: 'hash',
     routes: [
         {
             name: 'app',
@@ -45,10 +45,10 @@ export const createRouter = () => new VueRouter({
                 },
             ]
         },
-        // {
-        //     path: '/',
-        //     redirect: '/app/home'
-        // },
+        {
+            path: '/',
+            redirect: '/app/home'
+        },
         {
             name: 'detail',
             path: '/detail/:id',
