@@ -1,15 +1,17 @@
 const path = require("path");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+
 //在webpack4.x版本中mini-css-extract-plugin插件代替extract-text-webpack-plugin插件
 
 module.exports = {
-    mode: "development",
     output: {
         path: path.resolve(__dirname, "../dist"),
         filename: "[name].bundle.js",
         publicPath: "/",
     },
+    stats: "minimal",
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
@@ -68,6 +70,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new FriendlyErrorsWebpackPlugin(),
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
             filename: "css/[name].client.css",

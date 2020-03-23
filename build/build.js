@@ -7,11 +7,13 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");  //@next版本
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 
 const config = {
-    mode: 'none',
+    mode: 'production',
+    stats: "errors-only",
     // devtool: 'source-map',
     entry: path.resolve(__dirname, '../src/entry-server/index.js'),
     output: {
@@ -36,7 +38,7 @@ const config = {
                 test: /\.(css|less)$/,
                 use: [
                     'vue-style-loader',
-                    // MiniCssExtractPlugin.loader,
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
                         loader: "postcss-loader",
@@ -75,10 +77,6 @@ const config = {
                 options: {
                     modules: true,
                     localIdentName: '[local]_[hash:base64:8]',
-                    loaders: {
-                        // 提取 <docs> 中的内容为原始文本
-                        'docs': ExtractTextPlugin.extract('raw-loader'),
-                    }
                 }
             },
             {
@@ -93,14 +91,27 @@ const config = {
     },
 
     plugins: [
-        new ExtractTextPlugin('docs/index.md'),
+        // new ExtractTextPlugin('docs/index.md'),
+
+
+        // 捕获错误手写插件
+        function () {
+            this.hooks.done.tap('done', (stats) => {
+                if (stats.compilation.errors && stats.compilation.errors.length && process.argv.indexOf('--watch') == -1) {
+                    console.log('build error');
+                    process.exit(1);
+                }
+            })
+        },
+
+        new FriendlyErrorsWebpackPlugin(),
 
         new CleanWebpackPlugin(),
 
-        // new MiniCssExtractPlugin({
-        //     filename: 'css/[name].[hash:8].css',
-        //     chunkFilename: 'css/[id].[hash:8].css',
-        // }),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].[hash:8].css',
+            chunkFilename: 'css/[id].[hash:8].css',
+        }),
 
         new VueLoaderPlugin(),
         // DefinePlugin 允许创建一个在编译时可以配置的全局常量。
@@ -131,7 +142,6 @@ const config = {
         }
     }
 };
-
 
 
 module.exports = config;

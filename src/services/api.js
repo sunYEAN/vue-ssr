@@ -25,7 +25,6 @@ const parseFetch = (ms, fn) => {
     }
 };
 
-export const getHomeData = (params) => axios.get('/admin/issue/get', {
-    params
-});
+export const getHomeData = (params) => axios.get('/admin/issue/get', {params});
+
 export const getIssueDetail = (id) => axios.get('/admin/issue/' + id);
