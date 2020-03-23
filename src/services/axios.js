@@ -1,5 +1,5 @@
 import axios from 'axios'
-import LineProcess from '../components/Myloading';
+// import LineProcess from '../components/Myloading';
 
 // const lineProcess = new LineProcess();
 // lineProcess.start();

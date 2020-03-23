@@ -7,12 +7,6 @@
     export default {
         name: "About",
         mounted() {
-            axios.post('/api/admin/addIssue', {
-                title: '哈哈哈',
-                desc: '你好啊'
-            }).then(res => {
-                console.log(res);
-            })
         }
     }
 </script>

@@ -3,8 +3,12 @@ const express = require('express');
 const server = express();
 
 
-const { createBundleRenderer } = require('vue-server-renderer');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
+server.use('/api', createProxyMiddleware({'target': 'http://192.168.31.46:3000', pathRewrite: {'^/api': ""}, 'changeOrigin': true}));
+//
+
+const { createBundleRenderer } = require('vue-server-renderer');
 const template = require('fs').readFileSync('./dist/index.client.html', 'utf-8');
 const serverBundle = require('./dist/vue-ssr-server-bundle.json');
 const clientManifest = require('./dist/vue-ssr-client-manifest.json');

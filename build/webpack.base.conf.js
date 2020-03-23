@@ -33,7 +33,7 @@ module.exports = {
                 test: /\.(css|less)$/,
                 use: [
                     'vue-style-loader',
-                    MiniCssExtractPlugin.loader,
+                    // MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
                         loader: "postcss-loader",
@@ -74,9 +74,9 @@ module.exports = {
     plugins: [
         new FriendlyErrorsWebpackPlugin(),
         new VueLoaderPlugin(),
-        new MiniCssExtractPlugin({
-            filename: "css/[name].client.css",
-            chunkFilename: "css/[id].client.css"
-        })
+        // new MiniCssExtractPlugin({
+        //     filename: "css/[name].client.css",
+        //     chunkFilename: "css/[id].client.css"
+        // })
     ]
 };
