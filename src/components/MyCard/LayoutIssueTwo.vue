@@ -4,7 +4,7 @@
         <div v-if="info.poster.length" class="c-img">
             <img :src="info.poster[0]" alt="">
         </div>
-        <p>{{info.desc}}</p>
+        <p class="line-2">{{info.desc}}</p>
 
         <div class="desc">
             <span>{{info.edit_time}}</span>

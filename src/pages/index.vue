@@ -74,7 +74,7 @@
             bottom: auto;
         }
         .article{
-            padding-bottom:  calc(@navBarHeight + 20px);
+            padding-bottom:  calc(@navBarHeight + 10px);
         }
     }
 

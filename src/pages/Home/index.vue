@@ -7,8 +7,8 @@
             </template>
         </template>
 
-        <div v-else class="loading">
-            加载中...
+        <div class="loading">
+            {{isEnd ? '历史被掏空~' : '加载中...'}}
         </div>
     </div>
 </template>
@@ -37,7 +37,8 @@
 
         computed: {
             ...mapState({
-                list: state => state.Home.list,
+                list: state => state.Home.data.list,
+                isEnd: state => state.Home.data.isEnd,
                 banners: state => state.Home.banners,
                 province: state => state.Home.province,
             }),
@@ -88,12 +89,25 @@
             // event props cardLayout 监听item被点击
             handleItemTap (item) {
                 this.$router.push({
-                    path: '/detail/' + item.id
+                    path: '/detail/' + item._id
                 });
+            },
+
+            handleScroll (e) {
+                let scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+                let screenHeight = window.innerHeight;
+                let doc = document.documentElement || document.body;
+                if (scrollTop + screenHeight >= doc.offsetHeight) {
+                    this.$store.dispatch('getHomeData');
+                }
             }
         },
         async mounted() {
             console.log(1, process.env.VUE_ENV, '----');
+
+            if (process.env.VUE_ENV === 'client') {
+                window.addEventListener('scroll', $utils.throttle(this.handleScroll, 200));
+            }
 
             // this.loadingFetch(300, () => Promise.all([
             //     getHomeData(),
@@ -129,6 +143,7 @@
 
     .loading{
         color: #93939F;
+        padding: 16px 0;
         font-size: 28px;
         text-align: center;
     }

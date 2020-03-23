@@ -1,5 +1,5 @@
 <template>
-    <div class="detail-wrap" v-if="issue.title">
+    <div class="detail-wrap">
         <h3>{{issue.title}}</h3>
         <p class="i-d">
             <label>发布于：</label>
@@ -28,6 +28,7 @@
         mounted () {
         },
         asyncData ({store, route}) {
+            console.log(route);
             // 触发 action 后，会返回 Promise
             return Promise.all([
                 store.dispatch('getIssueById', route.params.id)

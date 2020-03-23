@@ -6,6 +6,7 @@ export default {
     actions: {
         getIssueById ({commit, state}, id) {
             return getIssueDetail(id).then(res => {
+                console.log(res)
                 commit('SET_ISSUE', res.data);
             });
         }
