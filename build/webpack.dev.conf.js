@@ -24,7 +24,7 @@ const config = {
     },
     devServer: {
         host: '0.0.0.0',
-        port: 8082,
+        port: 8081,
         historyApiFallback: true,
         proxy: {
             '/api': {
@@ -42,6 +42,7 @@ const config = {
             '@service': path.resolve(__dirname, '../src/services')
         }
     },
+    stats: "minimal",
     module: {
         rules: [
             {
