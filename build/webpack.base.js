@@ -1,29 +1,32 @@
-const path = require("path");
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
-
-//在webpack4.x版本中mini-css-extract-plugin插件代替extract-text-webpack-plugin插件
-
-const isDev = process.env.NODE_ENV === 'development';
+const path = require('path');
 
 module.exports = {
-    output: {
-        path: path.resolve(__dirname, "../dist"),
-        filename: "js/[name].bundle.js",
-        publicPath: "/",
+    devtool: '#source-map',
+    entry: {
+        app: './src/entry-client/index.js',
+        vendor: [
+            'es6-promise/auto',
+            'vue',
+            'vue-router',
+            'vuex',
+            'vuex-router-sync'
+        ]
     },
-    stats: "minimal",
+    output: {
+        path: path.resolve(__dirname, '../dist'),
+        publicPath: '/dist/',
+        filename: '[name].[chunkhash].js'
+    },
     resolve: {
-        extensions: ['.js', '.vue', '.json'],
         alias: {
             '@src': path.resolve(__dirname, '../src'),
             '@utils': path.resolve(__dirname, '../src/utils'),
-            '@service': path.resolve(__dirname, '../src/services')
+            '@service': path.resolve(__dirname, '../src/services'),
+            'public': path.resolve(__dirname, '../public')
         }
     },
     module: {
-
+        noParse: /es6-promise\.js$/, // avoid webpack shimming process
         rules: [
             {
                 test: /\.js$/,
@@ -71,12 +74,7 @@ module.exports = {
             },
         ]
     },
-    plugins: [
-        new FriendlyErrorsWebpackPlugin(),
-        new VueLoaderPlugin(),
-        // new MiniCssExtractPlugin({
-        //     filename: "css/[name].client.css",
-        //     chunkFilename: "css/[id].client.css"
-        // })
-    ]
-};
+    performance: {
+        hints: process.env.NODE_ENV === 'production' ? 'warning' : false
+    }
+}

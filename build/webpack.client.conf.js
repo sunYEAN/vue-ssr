@@ -1,36 +1,45 @@
-const base = require('./webpack.base.conf');
-const path = require('path');
-const merge = require('webpack-merge');
 const webpack = require('webpack');
-const VueClientPlugin = require('vue-server-renderer/client-plugin');
+const merge = require('webpack-merge');
+const base = require('./webpack.base');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const SWPrecachePlugin = require('sw-precache-webpack-plugin');
 
-module.exports = merge(base, {
-    mode: 'production',
-    entry: {
-        client: path.resolve(__dirname, '../src/entry-client/index.js')
-    },
-    target: 'web',
-    output: {
-        filename: 'js/client-entry.js',
-        path: path.join(__dirname, '../dist')
-    },
-
+const config = merge(base, {
     plugins: [
-        new VueClientPlugin(),
+        // strip dev-only code in Vue source
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
-            'process.env.VUE_ENV': "client"
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+            'process.env.VUE_ENV': '"client"'
         }),
+        // generate output HTML
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../index.html'),
-            filename: "index.client.html"
+            template: 'src/index.html'
         })
     ],
     optimization: {
         splitChunks: {
-            name: 'manifest',
+            name: 'vendor',
             minChunks: Infinity
         }
     }
 });
+
+if (process.env.NODE_ENV === 'production') {
+    config.plugins.push(
+        // minify JS
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
+        // auto generate service worker
+        new SWPrecachePlugin({
+            cacheId: 'vue-hn',
+            filename: 'service-worker.js',
+            dontCacheBustUrlsMatching: /./,
+            staticFileGlobsIgnorePatterns: [/index\.html$/, /\.map$/]
+        })
+    )
+}
+
+module.exports = config
