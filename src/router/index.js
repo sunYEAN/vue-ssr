@@ -11,7 +11,7 @@ import App from '../pages';
 Vue.use(VueRouter);
 
 export const createRouter = () => new VueRouter({
-    mode: 'hash',
+    mode: 'history',
     routes: [
         {
             name: 'app',

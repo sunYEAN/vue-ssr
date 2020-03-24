@@ -1,7 +1,7 @@
 import {createApp} from '../app'
 import 'reset.css';
-import '../services/axios';
 // import '../mock';
+import '../services/axios';
 import '../animate.css';
 import '../media.less';
 

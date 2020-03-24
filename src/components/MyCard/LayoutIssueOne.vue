@@ -6,12 +6,12 @@
             <div class="c-info">
                 <h3 class="line-2">{{info.layout}}{{info.title}}</h3>
                 <p class="line-2">{{info.desc}}</p>
-                <div class="desc">
-                    <span>{{info.create_time}}</span>
-                    <!--<label>更新：</label><span>{{info.update_time}}</span>-->
-                    <span class="cate">{{info.cate && info.cate.name}}</span>
-                </div>
             </div>
+        </div>
+        <div class="desc">
+            <span>{{info.edit_time}}</span>
+            <!--<label>更新：</label><span>{{info.update_time}}</span>-->
+            <span class="cate">{{info.cate}}</span>
         </div>
     </div>
 </template>
@@ -39,7 +39,6 @@
             img.cover{
                 width: 180px;
                 height: 228px;
-                object-fit: cover;
                 flex-shrink: 0;
                 margin-right: 16px;
             }
@@ -54,14 +53,36 @@
                     margin-top: 0;
                     -webkit-line-clamp: 3;
                 }
-                >.desc{
-                    color: #93939F;
-                    display: flex;
-                    font-size: 26px;
-                    margin-top: 20px;
-                    justify-content: space-between;
-                }
             }
         }
     }
+
+    /*.cover-small{*/
+    /*    .cover-box{*/
+    /*        width: 60px;*/
+    /*        height: 60px;*/
+    /*        flex-shrink: 0;*/
+    /*        img.cover{*/
+    /*            width: 40px;*/
+    /*            height: 40px;*/
+    /*            border-radius: 50%;*/
+    /*        }*/
+    /*    }*/
+    /*    .info{*/
+    /*        h3.i-name{*/
+    /*            font-size: 14px;*/
+    /*            line-height: 28px;*/
+    /*        }*/
+    /*        p.i-desc{*/
+    /*            font-size: 12px;*/
+    /*            line-height: 16px;*/
+
+    /*            display: -webkit-box;*/
+    /*            -webkit-line-clamp: 2;*/
+    /*            -webkit-box-orient: vertical;*/
+    /*            text-overflow: ellipsis;*/
+    /*            overflow: hidden;*/
+    /*        }*/
+    /*    }*/
+    /*}*/
 </style>

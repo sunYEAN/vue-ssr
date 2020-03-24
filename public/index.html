@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ssr</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <script>
+        window.computedScale = function () {
+            var w = document.documentElement.clientWidth;
+            w = w > 414 ? 414 : w;
+            return w / 7.5;
+        };
+        var response = function () {
+            if (document.documentElement.clientWidth > 1024) {
+                // document.documentElement.style.width = 1024 + 'px';
+                // document.documentElement.style.marginLeft = 'auto';
+                // document.documentElement.style.marginRight = 'auto';
+            } else {
+                document.documentElement.style.width = '';
+                document.documentElement.style.marginLeft = '';
+                document.documentElement.style.marginRight = '';
+            }
+            document.documentElement.style.fontSize = window.computedScale() + 'px';
+        };
+        window.onresize = function () {
+            response();
+            clearTimeout(this.responseTimer);
+            this.responseTimer = setTimeout(response, 300);
+        };
+        response();
+    </script>
+</head>
+<body>
+
+<div id="app">
+    <!--vue-ssr-outlet-->
+</div>
+</body>
+</html>
