@@ -1,6 +1,6 @@
 const path = require("path");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 //在webpack4.x版本中mini-css-extract-plugin插件代替extract-text-webpack-plugin插件
@@ -33,7 +33,7 @@ module.exports = {
                 test: /\.(css|less)$/,
                 use: [
                     'vue-style-loader',
-                    MiniCssExtractPlugin.loader,
+                    // MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
                         loader: "postcss-loader",
@@ -74,9 +74,9 @@ module.exports = {
     plugins: [
         new FriendlyErrorsWebpackPlugin(),
         new VueLoaderPlugin(),
-        new MiniCssExtractPlugin({
-            filename: "css/[name].client.css",
-            chunkFilename: "css/[id].client.css"
-        })
+        // new MiniCssExtractPlugin({
+        //     filename: "css/[name].client.css",
+        //     chunkFilename: "css/[id].client.css"
+        // })
     ]
 };

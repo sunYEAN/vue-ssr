@@ -1,4 +1,4 @@
-const base = require('./webpack.base.conf');
+const base = require('./webpack.base');
 const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
@@ -9,7 +9,7 @@ module.exports = merge(base, {
     target: 'node',
     devtool: 'source-map',
     entry:  {
-        main: path.resolve(__dirname, '../src/entry-server/index.js')
+        app: path.resolve(__dirname, '../src/entry-server/index.js')
     },
     output: {
         libraryTarget: 'commonjs2',

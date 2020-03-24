@@ -53,6 +53,7 @@
 
         asyncData ({store, route}) {
             // 触发 action 后，会返回 Promise
+            console.log('asyncData');
             return Promise.all([
                 store.dispatch('getHomeData')
             ])
@@ -93,20 +94,20 @@
                 });
             },
 
-            handleScroll (e) {
-                let scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-                let screenHeight = window.innerHeight;
-                let doc = document.documentElement || document.body;
-                if (scrollTop + screenHeight >= doc.offsetHeight) {
-                    this.$store.dispatch('getHomeData');
-                }
-            }
+            // handleScroll (e) {
+            //     let scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+            //     let screenHeight = window.innerHeight;
+            //     let doc = document.documentElement || document.body;
+            //     if (scrollTop + screenHeight >= doc.offsetHeight) {
+            //         this.$store.dispatch('getHomeData');
+            //     }
+            // }
         },
         async mounted() {
             console.log(1, process.env.VUE_ENV, '----');
 
             if (process.env.VUE_ENV === 'client') {
-                window.addEventListener('scroll', $utils.throttle(this.handleScroll, 200));
+                // window.addEventListener('scroll', $utils.throttle(this.handleScroll, 200));
             }
 
             // this.loadingFetch(300, () => Promise.all([
