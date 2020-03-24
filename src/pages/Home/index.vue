@@ -32,15 +32,25 @@
                 amp: true
             }
         },
-        components: {
-            ...CardLayout,
-            VComment,
+
+        // 我们将在路由组件上暴露出一个自定义静态函数 asyncData。
+        // 注意，
+        // 由于此函数会在组件实例化之前调用，所以它无法访问 this
+
+        asyncData ({store, route}) {
+            // 触发 action 后，会返回 Promise
+            return store.dispatch('getHomeData');
         },
+
         data () {
             return {
                 name: 'home',
                 loading: false,
             }
+        },
+        components: {
+            ...CardLayout,
+            VComment,
         },
 
         computed: {
@@ -55,14 +65,6 @@
             }
         },
 
-        // 我们将在路由组件上暴露出一个自定义静态函数 asyncData。
-        // 注意，
-        // 由于此函数会在组件实例化之前调用，所以它无法访问 this
-
-        asyncData ({store, route}) {
-            // 触发 action 后，会返回 Promise
-            return store.dispatch('getHomeData');
-        },
         methods: {
             getComponentName (card) {
                 return `card-layout-Issue-${layouts[card.layout]}`;

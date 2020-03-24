@@ -9,11 +9,15 @@ Vue.use(Meta, {
     refreshOnceOnNavigation: true
 });
 
-export function createApp () {
+export function createApp (context) {
     const store = createStore();
     const router = createRouter();
 
     sync(store, router);
+
+    if (context && context.beforeResolve) {
+        context.beforeResolve({store, router});
+    }
 
     const app = new Vue({
         metaInfo: {

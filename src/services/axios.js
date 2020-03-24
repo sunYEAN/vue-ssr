@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const isClientDev = process.env.ENVIRONMENT === 'deb';
+const isClientDev = process.env.ENVIRONMENT === 'dev';
 
 const request = axios.create({
     baseURL: isClientDev ? '/api' : 'http://192.168.31.46:3000/'
