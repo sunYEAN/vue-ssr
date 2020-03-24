@@ -3,14 +3,14 @@
         <h3>{{issue.title}}</h3>
         <p class="i-d">
             <label>发布于：</label>
-            <span>{{issue.create_time}}</span>
+            <span>{{issue.edit_time}}</span>
 
             <template v-if="issue.update_time">
                 <label>更新于：</label>
                 <span>{{issue.update_time}}</span>
             </template>
 
-            <span>{{issue.cate && issue.cate.name}}</span>
+            <span>{{issue.cate}}</span>
         </p>
         <p class="content" v-html="issue.content"></p>
     </div>

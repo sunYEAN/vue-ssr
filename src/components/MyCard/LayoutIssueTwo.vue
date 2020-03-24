@@ -7,9 +7,9 @@
         <p class="line-2">{{info.desc}}</p>
 
         <div class="desc">
-            <span>{{info.create_time}}</span>
+            <span>{{info.edit_time}}</span>
             <!--<label>更新：</label><span>{{info.update_time}}</span>-->
-            <span class="cate">{{info.cate && info.cate.name}}</span>
+            <span class="cate">{{info.cate}}</span>
         </div>
 
         <slot></slot>
