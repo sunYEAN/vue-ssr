@@ -12,12 +12,13 @@ module.exports = merge(base, {
     },
     target: 'web',
     output: {
-        filename: 'js/client-entry.js',
+        filename: 'js/[name].bundle.js',
         path: path.join(__dirname, '../dist')
     },
 
     devServer: {
         hot: true,
+        port: 8081,
         host: '0.0.0.0',
         historyApiFallback: true,
         proxy: {
@@ -34,7 +35,8 @@ module.exports = merge(base, {
     plugins: [
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
-            'process.env.VUE_ENV': '"client"'
+            'process.env.VUE_ENV': '"client"',
+            'process.env.ENVIRONMENT': '"dev"'
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../public/index.html'),

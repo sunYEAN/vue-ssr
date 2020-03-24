@@ -1,16 +1,18 @@
-export default {
-    state: {
-        list: [],
-        banners: [],
-    },
-    actions: {
-    },
-    mutations: {
-        ['SET_BANNERS'] (state, data) {
-            state.banners = data;
+export function createModule() {
+    return {
+        state: {
+            list: [],
+            banners: [],
         },
-        ['SET_RECORD_DATA'] (state, data) {
-            state.list = data;
+        actions: {
         },
-    }
+        mutations: {
+            ['SET_BANNERS'] (state, data) {
+                state.banners = data;
+            },
+            ['SET_RECORD_DATA'] (state, data) {
+                state.list = data;
+            },
+        }
+    };
 }

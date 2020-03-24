@@ -1,5 +1,8 @@
-import axios from 'axios';
+import request from './axios';
 
-export const getHomeData = (params) => axios.get('/admin/issue', {params});
+export const getHomeData = (params) => {
+    console.log(params, 'params');
+    return request.get('/admin/issue', {params});
+};
 
-export const getIssueDetail = (id) => axios.get('/admin/issue/' + id);
+export const getIssueDetail = (id) => request.get('/admin/issue/' + id);

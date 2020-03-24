@@ -24,6 +24,14 @@
 
     export default {
         name:'Home',
+        metaInfo: {
+            title: '首页',
+            titleTemplate: '%s - issues!',
+            htmlAttrs: {
+                lang: 'en',
+                amp: true
+            }
+        },
         components: {
             ...CardLayout,
             VComment,
@@ -53,36 +61,9 @@
 
         asyncData ({store, route}) {
             // 触发 action 后，会返回 Promise
-            console.log('asyncData');
-            return Promise.all([
-                store.dispatch('getHomeData')
-            ])
+            return store.dispatch('getHomeData');
         },
         methods: {
-            // 页面请求太快的时候，解决loading闪屏的问题
-            // 方式一
-            // 方式二 通过Promise.race来做
-            loadingFetch (ms, fetch, callback) {
-                return new Promise((resolve, reject) => {
-                    const timer = setTimeout(callback, ms);
-                    // let time = Date.now();
-                    return fetch().then(res => {
-                        // time = Date.now() - time;
-                        // console.log(time, ms);
-                        clearTimeout(timer);
-                        // if (time - ms > 0 && time - ms <= 300) {
-                        //     setTimeout(() => {
-                        //         console.log('setTimeout');
-                        //         resolve(res);
-                        //     }, 300);
-                        // } else
-                        resolve(res);
-                    }).catch(err => {
-                        reject(err);
-                    })
-                })
-            },
-
             getComponentName (card) {
                 return `card-layout-Issue-${layouts[card.layout]}`;
             },
@@ -94,20 +75,20 @@
                 });
             },
 
-            // handleScroll (e) {
-            //     let scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-            //     let screenHeight = window.innerHeight;
-            //     let doc = document.documentElement || document.body;
-            //     if (scrollTop + screenHeight >= doc.offsetHeight) {
-            //         this.$store.dispatch('getHomeData');
-            //     }
-            // }
+            handleScroll (e) {
+                let scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+                let screenHeight = window.innerHeight;
+                let doc = document.documentElement || document.body;
+                if (scrollTop + screenHeight >= doc.offsetHeight) {
+                    this.$store.dispatch('getHomeData');
+                }
+            }
         },
         async mounted() {
             console.log(1, process.env.VUE_ENV, '----');
 
             if (process.env.VUE_ENV === 'client') {
-                // window.addEventListener('scroll', $utils.throttle(this.handleScroll, 200));
+                window.addEventListener('scroll', $utils.throttle(this.handleScroll, 200));
             }
 
             // this.loadingFetch(300, () => Promise.all([

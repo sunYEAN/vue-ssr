@@ -66,6 +66,7 @@
   "dependencies": {
     "amfe-flexible": "^2.2.1",
     "axios": "^0.19.2",
-    "reset.css": "^2.0.2"
+    "reset.css": "^2.0.2",
+    "vue-meta": "^2.3.3"
   }
 }

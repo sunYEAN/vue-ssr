@@ -15,10 +15,10 @@ function createRenderer (bundle, options) {
     return createBundleRenderer(bundle, {
         template: options.template,
         clientManifest: options.clientManifest,
-        cache: new LRU({
-            max: 1000,
-            maxAge: 1000 * 60 * 15
-        }),
+        // cache: new LRU({
+        //     max: 1000,
+        //     maxAge: 1000 * 60 * 15
+        // }),
         basedir: resolve('./dist'),
         runInNewContext: false
     })
@@ -28,13 +28,15 @@ let renderer;
 if (isProd) { // 生产环境
     const serverBundle = require('./dist/vue-ssr-server-bundle.json');
     const clientManifest = require('./dist/vue-ssr-client-manifest.json');
-    renderer = createRenderer(serverBundle, {
-        template,
-        clientManifest
-    });
+    renderer = Promise.resolve(
+        createRenderer(serverBundle, {
+            template,
+            clientManifest
+        })
+    );
 } else { // 开发环境
-    require('./build/dev-server')(server).then(({bundle, clientManifest}) => {
-        renderer = createRenderer(bundle, {
+    renderer = require('./build/dev-server')(server).then(({bundle, clientManifest}) => {
+        return createRenderer(bundle, {
             template,
             clientManifest
         });
@@ -42,7 +44,7 @@ if (isProd) { // 生产环境
 }
 
 server.use(createProxyMiddleware('/api', {
-    target: 'http://192.168.8.19:3000',
+    target: 'http://192.168.31.46:3000',
     changeOrigin: true,
     pathRewrite: {
         '^/api': ''
@@ -60,12 +62,13 @@ server.get('*', (req, res) => {
 
     // 这里无需传入一个应用程序，因为在执行 bundle 时已经自动创建过。
     // 现在我们的服务器与应用程序已经解耦！
-    renderer.renderToString(context, (err, html) => {
-        // 处理异常……
-        if (err) {
-            console.log(err, 'renderToString');
-            res.end(JSON.stringify(err));
-        } else res.end(html)
+    renderer.then(render => {
+        render.renderToString(context, (err, html) => {
+          // 处理异常……
+          if (err) {
+              res.end(JSON.stringify(err));
+          } else res.end(html)
+      })
     })
 });
 
