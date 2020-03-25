@@ -38,6 +38,12 @@ export const createRouter = () => new VueRouter({
                     // component: Record
                 },
                 {
+                    name: 'demos',
+                    path: 'demos',
+                    component: () => import('../pages/Demo')
+                    // component: Issue
+                },
+                {
                     name: 'about',
                     path: 'about',
                     component: () => import('../pages/About')

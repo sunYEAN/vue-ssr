@@ -31,9 +31,14 @@
                         title: '记录'
                     },
                     {
+                        id: 'tab_02',
+                        path: '/app/demos',
+                        title: 'demo'
+                    },
+                    {
                         id: 'tab_04',
                         path: '/app/about',
-                        title: '关于'
+                        title: 'about'
                     }
                 ]
             }
