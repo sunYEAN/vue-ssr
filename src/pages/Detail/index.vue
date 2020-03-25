@@ -30,9 +30,7 @@
         asyncData ({store, route}) {
             console.log(route);
             // 触发 action 后，会返回 Promise
-            return Promise.all([
-                store.dispatch('getIssueById', route.params.id)
-            ])
+            return store.dispatch('getIssueById', route.params.id)
         },
     }
 </script>

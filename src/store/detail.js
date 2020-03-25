@@ -7,8 +7,8 @@ export function createModule() {
         },
         actions: {
             getIssueById ({commit, state}, id) {
+                if (state.issue._id === id) return;
                 return getIssueDetail(id).then(res => {
-                    console.log(res)
                     commit('SET_ISSUE', res.data);
                 });
             }

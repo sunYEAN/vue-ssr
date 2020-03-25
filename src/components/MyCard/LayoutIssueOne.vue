@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="desc">
-            <span>{{info.edit_time}}</span>
+            <span>{{info.create_time}}</span>
             <!--<label>更新：</label><span>{{info.update_time}}</span>-->
             <span class="cate">{{info.cate}}</span>
         </div>
