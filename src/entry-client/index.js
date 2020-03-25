@@ -18,6 +18,8 @@ const beforeResolve = function ({store, router}) {
 
         if (!activated.length) return next();
 
+
+
         // 不阻塞代码执行
         Promise.all(activated.map(c => {
             if (c.asyncData) c.asyncData({store, route: to});

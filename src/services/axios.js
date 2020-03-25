@@ -2,8 +2,12 @@ import axios from 'axios';
 
 const isClientDev = process.env.ENVIRONMENT === 'dev';
 
+let baseURL = process.env.VUE_ENV === 'client' ? '/api' : 'http://localhost:3000/';
+
+console.log(baseURL);
+
 const request = axios.create({
-    baseURL: isClientDev ? '/api' : 'http://192.168.31.46:3000/'
+    baseURL
 });
 
 request.interceptors.request.use(function (config) {

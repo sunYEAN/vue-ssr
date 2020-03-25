@@ -1,11 +1,11 @@
 <template>
     <div class="container home">
-        <template v-if="list.length">
+        <div v-if="list.length">
             <template v-for="(item, index) in list">
                 <component :is="getComponentName(item)" @onTap="handleItemTap" :info="item"></component>
                 <v-comment :key="comment.id" v-for="(comment, ind) in item.comments" :comment="comment"></v-comment>
             </template>
-        </template>
+        </div>
 
         <div class="loading">
             {{isEnd ? '历史被掏空~' : '加载中...'}}
